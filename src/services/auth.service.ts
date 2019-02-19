@@ -4,7 +4,7 @@ import { Credentials } from "../models/credentials/credentials.model";
 import { enviroment } from "../environment/api";
 import { User } from "../models/user/user.model";
 import { StorageService } from "./storage.service";
-import { JwtHelper} from "angular2-jwt";
+import { JwtHelper } from "angular2-jwt";
 
 @Injectable()
 export class AuthService {
@@ -15,9 +15,19 @@ export class AuthService {
     }
 
     authenticate(credentials: Credentials) {
-       return this.http.post(
+        return this.http.post(
             `${enviroment.apiUrl}/login`,
             credentials,
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
+
+    refreshToken() {
+        return this.http.post(
+            `${enviroment.apiUrl}/v1/users/auth/refresh_token`,
+            {},
             {
                 observe: 'response',
                 responseType: 'text'
