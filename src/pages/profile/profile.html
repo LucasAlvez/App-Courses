@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Minha conta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-avatar>
+  <img class="circle" [src]="account?.image || 'assets/imgs/gravatar.png'">
+</ion-avatar>
+
+<h2 text-center>{{ account?.name }}</h2>
+<p text-center>{{ account?.email }}</p>
+
+<h5>Endereço</h5>
+<strong>Endereço: </strong> {{ account?.address?.address }} <br>
+<strong>Nº :</strong> {{ account?.address?.addressNumber }} <br>
+<strong>Complemento: </strong> {{ account?.address?.complement }} <br>
+<strong>Bairro: </strong> {{ account?.address?.neighborhood }} <br>
+<strong>CEP: </strong> {{ account?.address?.cep }} <br>
+<strong>Cidade: </strong> {{ account?.address?.city }} <br>
+<strong>Estado: </strong> {{ account?.address?.state }} <br>
+<strong>País: </strong> {{ account?.address?.country }}
+
+<br><h5>Contato</h5>
+<strong>Telefone: </strong> {{ account?.contact?.phoneNumber }} <br>
+<strong>Celular: </strong> {{ account?.contact?.cellPhoneNumber }} <br>
+<strong>Facebook: </strong> {{ account?.contact?.facebook }} <br>
+<strong>Twitter: </strong> {{ account?.contact?.twitter }} <br>
+<strong>Skype: </strong> {{ account?.contact?.skype }} <br>
+
+<p text-center>Conta criada em {{ account?.createDate | date: 'dd/MM/yyyy'}}</p>
+</ion-content>

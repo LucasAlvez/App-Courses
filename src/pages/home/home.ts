@@ -1,14 +1,40 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
+import { Credentials } from '../../models/credentials/credentials.model';
+import { AuthService } from '../../services/auth.service';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  credentials: Credentials = {
+    email: "",
+    pass: ""
+  };
+
+  constructor(
+    public navCtrl: NavController,
+    public menu: MenuController,
+    public authService: AuthService) {
 
   }
 
+  ionViewWillEnter() {
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.swipeEnable(true);
+  }
+
+  login() {
+    this.authService.authenticate(this.credentials).subscribe(response => {
+      this.authService.successfullLogin(response.headers.get('Authorization'));
+      this.navCtrl.setRoot('CategoriesPage');
+    }, error => {});
+  }
 }
