@@ -14,6 +14,7 @@ import { AccountService } from '../services/account.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { CourseService } from '../services/course.service';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CourseService } from '../services/course.service';
     AccountService,
     CategoryService,
     CourseService,
+    UserService,
     AuthInterceptorProvider,
     ErrorInterceptorProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

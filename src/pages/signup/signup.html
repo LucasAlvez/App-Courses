@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Registre-se</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
+    <ion-item>
+      <ion-label stacked>Nome*</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <small *ngIf="formGroup.controls['name'].hasError('required') && formGroup.controls['name'].touched" margin-left>Nome deve ser incluído.</small>
+
+    <ion-item>
+      <ion-label stacked>Email*</ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <small *ngIf="formGroup.controls['email'].hasError('required') && formGroup.controls['email'].touched" margin-left>E-mail deve ser incluído.</small>
+    <small *ngIf="formGroup.controls['email'].errors?.email && formGroup.controls['email'].dirty" margin-left>E-mail inválido.</small>
+
+    <ion-item>
+      <ion-label stacked>Senha*</ion-label>
+      <ion-input formControlName="pass" type="pass"></ion-input>
+    </ion-item>
+    <small *ngIf="formGroup.controls['pass'].hasError('required') && formGroup.controls['pass'].touched" margin-left>Senha deve ser incluído.</small>
+    <small *ngIf="formGroup.controls['pass'].errors?.minlength && formGroup.controls['pass'].dirty" margin-left>Senha deve conter no minimo 6 caracteres.</small>
+
+    <br>
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</button>
+  </form>
+
+</ion-content>

@@ -26,10 +26,9 @@ export class ProfilePage {
     if (localUser) {
       this.accountService.getDetails().subscribe(response => {
         this.account = response;
-        console.log(this.account)
         this.getImageAccount();
       }, error => {
-        if (error.status == 403 || error.status == 500) {
+        if (error.status == 403) {
           this.navCtrl.setRoot('HomePage');
         }
       });
@@ -41,8 +40,6 @@ export class ProfilePage {
   getImageAccount() {
     this.accountService.getImage(this.account.id).subscribe(response => {
       this.account.image = `${enviroment.bucketUrl}/account${this.account.id}.jpg`
-      console.log(this.account)
-      console.log(response)
     }, error => { });
   }
 

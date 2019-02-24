@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { Observable } from "rxjs/Rx";
 import { StorageService } from "../services/storage.service";
 import { AlertController } from "ionic-angular";
-
+import { FieldMessage } from "../models/field-message/field-message.model";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -35,23 +35,23 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 403:
                         this.handle403();
                         break;
-                    case 500:
-                        this.handle500();
+                    case 422:
+                        this.handle422(errorObj);
                         break;
                     default:
-                    this.handleDefaultError(errorObj);    
+                        this.handleDefaultError(errorObj);
                 }
                 return Observable.throw(errorObj);
             }) as any;
     }
 
     handle401() {
-      let alertCtrl = this.alert.create({
+        let alertCtrl = this.alert.create({
             title: 'Erro 401: Falha de autenticação',
             message: 'E-mail ou senha incorretos',
             enableBackdropDismiss: false,
             buttons: [
-                {text: 'Ok'}
+                { text: 'Ok' }
             ]
         });
         alertCtrl.present();
@@ -62,21 +62,38 @@ export class ErrorInterceptor implements HttpInterceptor {
         storageService.setLocalUser(null);
     }
 
-    handle500() {
-        const storageService = this.injector.get(StorageService);
-        storageService.setLocalUser(null);
+    handle422(errorObj) {
+        let alertCtrl = this.alert.create({
+            title: 'Erro 422: Validação',
+            message: this.listErrors(errorObj.errors),
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                    text: 'Ok'
+                }
+            ]
+        });
+        alertCtrl.present();
     }
 
     handleDefaultError(errorObj) {
         let alertCtrl = this.alert.create({
-            title: 'Erro:'+ errorObj.status + ': ' + errorObj.error,
+            title: 'Erro:' + errorObj.status + ': ' + errorObj.error,
             message: errorObj.message,
             enableBackdropDismiss: false,
             buttons: [
-                {text: 'Ok'}
+                { text: 'Ok' }
             ]
         });
         alertCtrl.present();
+    }
+
+    private listErrors(messages: FieldMessage[]): string {
+        let s: string = '';
+        for (var i = 0; i < messages.length; i++) {
+            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
+        }
+        return s;
     }
 }
 

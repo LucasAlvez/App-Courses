@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category/category.model';
+import { enviroment } from '../../environment/api';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,9 @@ import { Category } from '../../models/category/category.model';
 })
 export class CategoriesPage {
 
-  categories: any;
+  bucketUrl = enviroment.bucketUrl;
+
+  categories: Category[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -20,19 +23,14 @@ export class CategoriesPage {
 
   ionViewDidLoad() {
     this.categoryService.findAll().subscribe(response => {
-      this.categories = response;
-      console.log(this.categories)
+      this.categories = this.categories.concat(response['content']);
+      let start = this.categories.length;
+      let end = this.categories.length - 1;
+      //this.getCurrentUser();
     }, error => {
-      if (error.status == 403 || error.status == 500) {
+      if (error.status == 403) {
         this.navCtrl.setRoot('HomePage');
       }
     });
   }
-
-  /*
-    getImageCategories() {
-      this.categoryService.getImage().subscribe(response => { 
-  
-      }, error => {});
-    } */
 }

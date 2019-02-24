@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, ToastController } from 'ionic-angular';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { Credentials } from '../../models/credentials/credentials.model';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { UserDetils } from '../../models/user/userDetails.model';
 
 @IonicPage()
 @Component({
@@ -16,10 +18,14 @@ export class HomePage {
     pass: ""
   };
 
+  user: UserDetils;
+
   constructor(
     public navCtrl: NavController,
     public menu: MenuController,
-    public authService: AuthService) {
+    public authService: AuthService,
+    public userService: UserService,
+    public toast: ToastController) {
 
   }
 
@@ -35,13 +41,29 @@ export class HomePage {
     this.authService.refreshToken().subscribe(response => {
       this.authService.successfullLogin(response.headers.get('Authorization'));
       this.navCtrl.setRoot('CategoriesPage');
-    }, error => {});
+    }, error => { });
   }
 
   login() {
     this.authService.authenticate(this.credentials).subscribe(response => {
       this.authService.successfullLogin(response.headers.get('Authorization'));
       this.navCtrl.setRoot('CategoriesPage');
+      this.getCurrentUser();
+    }, error => { });
+  }
+
+  getCurrentUser() {
+    this.userService.getUser().subscribe(response => {
+     this.user = response;
+      let toastCtrl = this.toast.create({
+        message: 'Olá ' + this.user.name,
+        duration: 3000
+      });
+      toastCtrl.present();
     }, error => {});
+  }
+
+  signup() {
+    this.navCtrl.push('SignupPage');
   }
 }
