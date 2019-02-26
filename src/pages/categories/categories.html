@@ -12,10 +12,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-slides pager="true">
-    <ion-slide *ngFor="let category of categories">
+    <ion-item>
+    <button ion-button block color="dark"  (click)="showAllCourses()">Vizualizar todos os cursos</button>
+  </ion-item>
+
+  <ion-slides pager="true" style="height: 90%;">
+    <ion-slide *ngFor="let category of categories" (click)="showCoursesByCategory(category.id)">
       <h1>{{ category.name }}</h1>
-      <img src="{{bucketUrl}}/category{{category.id}}.jpg" alt="logo">
+      <img src="{{bucketUrl}}/category{{category.id}}.jpg">
     </ion-slide>
   </ion-slides>
 </ion-content>

@@ -1,22 +1,18 @@
-<ion-content padding>
-  <h3>Tela de Login</h3>
-
+<ion-content padding style="margin-top: 25%">
   <img src="assets/imgs/home.png" alt="logo">
 
-  <form action="">
-    <ion-item>
-      <ion-label stacked>E-mail:</ion-label>
-      <ion-input [(ngModel)]="credentials.email" name="email" type="text"></ion-input>
-    </ion-item>
+  <ion-item>
+    <ion-label stacked>E-mail:</ion-label>
+    <ion-input [(ngModel)]="credentials.email" name="email" type="text"></ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Senha:</ion-label>
-      <ion-input [(ngModel)]="credentials.pass" name="pass" type="password"></ion-input>
-    </ion-item>
+  <ion-item>
+    <ion-label stacked>Senha:</ion-label>
+    <ion-input [(ngModel)]="credentials.pass" name="pass" type="password"></ion-input>
+  </ion-item>
 
-    <br>
-    <button ion-button block (click)="login()">Entrar</button>
+  <br>
+  <button ion-button block color="dark" (click)="login()">Entrar</button>
 
-    <ion-label align="center" (click)="signup()">Registre-se</ion-label>
-  </form>
+  <ion-label align="center" (click)="signup()">Registre-se</ion-label>
 </ion-content>

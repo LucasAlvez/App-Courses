@@ -24,13 +24,18 @@ export class CategoriesPage {
   ionViewDidLoad() {
     this.categoryService.findAll().subscribe(response => {
       this.categories = this.categories.concat(response['content']);
-      let start = this.categories.length;
-      let end = this.categories.length - 1;
-      //this.getCurrentUser();
     }, error => {
       if (error.status == 403) {
         this.navCtrl.setRoot('HomePage');
       }
     });
+  }
+
+  showCoursesByCategory(categoryId: string) {
+    this.navCtrl.push('CoursesPage', {categoryId: categoryId});
+  }
+
+  showAllCourses() {
+    this.navCtrl.push('CoursesPage');
   }
 }

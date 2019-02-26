@@ -1,6 +1,10 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
     <ion-title>Cursos</ion-title>
   </ion-navbar>
 
@@ -8,5 +12,30 @@
 
 
 <ion-content padding>
+
+  <ion-card *ngFor="let course of courses">
+    <ion-card-header>
+      <img src="{{bucketUrl}}/course{{course.id}}.jpg">
+
+      <ion-card-title>{{ course.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ course.description }} <br><br>
+
+      <ion-row>
+        <ion-col>
+          <label style="font-size: 11px"><b>Professor:</b> {{ course.producer.name }}</label>
+        </ion-col>
+        <ion-col>
+          <label style="font-size: 11px; float: right;"><b>{{ course.students.length }}</b> alunos.</label>
+        </ion-col>
+      </ion-row>
+
+      <ion-item>
+        <button ion-button block color="dark">Se inscrever no curso</button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
