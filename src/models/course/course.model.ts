@@ -6,7 +6,7 @@ export interface Course {
     createDate: string;
     updateDate: string;
 
-    categories: string;
-    producer: string;
-    students: string;
+    categories?: string;
+    producer?: string;
+    students?: string;
 }

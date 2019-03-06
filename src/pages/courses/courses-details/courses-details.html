@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ course?.name }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ course?.name }}</ion-card-title>
+      {{ course?.description }} <br><br>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <label><b>Professor:</b> {{ course?.producer?.name }}</label>
+      <label class="students"><b>{{ course?.students?.length }}</b> aluno(s).</label>
+
+      <ion-item align="center">
+        <button *ngIf="!isStudent" ion-button block round color="dark" (click)="addStudents(course.id)">Se inscrever no curso</button>
+        <button *ngIf="isStudent" ion-button block outline round color="success" disabled="true">Você já é aluno deste curso</button>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Módulos e Aulas</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Professor</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -18,22 +18,16 @@
       <img src="{{bucketUrl}}/course{{course.id}}.jpg">
 
       <ion-card-title>{{ course.name }}</ion-card-title>
+      {{ course.description }} <br><br>
     </ion-card-header>
 
     <ion-card-content>
-      {{ course.description }} <br><br>
 
-      <ion-row>
-        <ion-col>
-          <label style="font-size: 11px"><b>Professor:</b> {{ course.producer.name }}</label>
-        </ion-col>
-        <ion-col>
-          <label style="font-size: 11px; float: right;"><b>{{ course.students.length }}</b> alunos.</label>
-        </ion-col>
-      </ion-row>
+      <label><b>Professor:</b> {{ course.producer.name }}</label>
+      <label class="students"><b>{{ course.students.length }}</b> aluno(s).</label>
 
       <ion-item>
-        <button ion-button block color="dark">Se inscrever no curso</button>
+        <button ion-button block round color="dark" (click)="courseDetails(course.id)">Abrir página do curso</button>
       </ion-item>
     </ion-card-content>
   </ion-card>

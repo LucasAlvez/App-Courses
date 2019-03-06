@@ -4,6 +4,7 @@ import { CategoryService } from '../../services/category.service';
 import { Course } from '../../models/course/course.model';
 import { enviroment } from '../../environment/api';
 import { CourseService } from '../../services/course.service';
+import { UserService } from '../../services/user.service';
 
 @IonicPage()
 @Component({
@@ -13,12 +14,13 @@ import { CourseService } from '../../services/course.service';
 export class CoursesPage {
 
   bucketUrl = enviroment.bucketUrl;
-
   courses: Course[] = [];
+  students: any[];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public userService: UserService,
     public categoryService: CategoryService,
     public courseService: CourseService) {
   }
@@ -44,5 +46,9 @@ export class CoursesPage {
     this.courseService.findAll().subscribe(response => {
       this.courses = response['content'];
     }, error => { });
+  }
+  
+  courseDetails(courseId) {
+    this.navCtrl.push('CoursesDetailsPage', {courseId: courseId});
   }
 }
